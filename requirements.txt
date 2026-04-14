@@ -1,0 +1,20 @@
+# Runtime dependencies — pinned for reproducible production builds.
+# See pyproject.toml for canonical ranges; this file pins the resolved set.
+feast[redis,gcp,snowflake,aws]==0.39.1
+pandas==2.2.2
+pyarrow==16.1.0
+duckdb==0.10.3
+redis==5.0.4
+pydantic==2.7.1
+pydantic-settings==2.2.1
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+grpcio==1.64.1
+grpcio-tools==1.64.1
+mlflow==2.13.0
+great-expectations==0.18.16
+scipy==1.13.1
+numpy==1.26.4
+prometheus-client==0.20.0
+structlog==24.1.0
+tenacity==8.3.0
