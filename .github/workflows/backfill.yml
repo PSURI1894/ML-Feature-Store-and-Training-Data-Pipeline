@@ -1,0 +1,39 @@
+name: backfill
+
+# Manually-triggered, audited backfill. Runs an idempotent Spark job and records
+# progress in the backfill_runs table.
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_view:
+        description: "Feature view to backfill"
+        required: true
+      start:
+        description: "Start date (YYYY-MM-DD)"
+        required: true
+      end:
+        description: "End date (YYYY-MM-DD)"
+        required: true
+      dry_run:
+        description: "Plan only"
+        type: boolean
+        default: true
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev,spark]"
+      - name: Run backfill
+        run: |
+          python scripts/run_backfill.py \
+            --feature-view "${{ inputs.feature_view }}" \
+            --start "${{ inputs.start }}" \
+            --end "${{ inputs.end }}" \
+            ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
