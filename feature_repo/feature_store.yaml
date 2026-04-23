@@ -1,0 +1,21 @@
+# Feast repo configuration. Profiles select stores per environment; this file is
+# the local/dev default. Staging/prod override via feature_store.<env>.yaml.
+project: feature_platform
+provider: local
+registry:
+  registry_type: sql
+  path: ${REGISTRY_DB_URL:postgresql://feast:feast@localhost:5432/registry}
+  cache_ttl_seconds: 60
+
+online_store:
+  type: redis
+  connection_string: ${REDIS_HOST:localhost}:${REDIS_PORT:6379}
+  key_ttl_seconds: 86400
+
+offline_store:
+  type: duckdb   # overridden to bigquery/snowflake in prod profiles
+
+entity_key_serialization_version: 3
+flags:
+  alpha_features: true
+  on_demand_transforms: true
