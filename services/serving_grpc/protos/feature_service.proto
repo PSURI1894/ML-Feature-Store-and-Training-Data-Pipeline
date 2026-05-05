@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package feature_platform.serving.v1;
+
+// Online feature serving API. Designed for a single round trip per inference:
+// one request resolves an entire feature service for a batch of entities.
+
+service FeatureService {
+  // Resolve features for one or more entities from the online store.
+  rpc GetOnlineFeatures (GetOnlineFeaturesRequest) returns (GetOnlineFeaturesResponse);
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message EntityRow {
+  // join_key -> value, e.g. {"user_id": "u1"} or composite {"user_id":"u1","merchant_id":"m9"}.
+  map<string, string> join_keys = 1;
+}
+
+message GetOnlineFeaturesRequest {
+  // Either a feature_service name or an explicit list of "feature_view:feature".
+  string feature_service = 1;
+  repeated string features = 2;
+  repeated EntityRow entities = 3;
+  // Optional request-time context for on-demand features.
+  map<string, double> context = 4;
+}
+
+message FeatureVector {
+  map<string, double> numeric = 1;
+  map<string, string> categorical = 2;
+  // Per-feature status: 1 = present, 2 = missing, 3 = stale (outside TTL).
+  map<string, int32> statuses = 3;
+}
+
+message GetOnlineFeaturesResponse {
+  repeated FeatureVector results = 1;
+  int64 served_at_unix_ms = 2;
+}
+
+message HealthCheckRequest {}
+message HealthCheckResponse { bool ok = 1; string version = 2; }
