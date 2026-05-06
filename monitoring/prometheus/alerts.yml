@@ -1,0 +1,32 @@
+groups:
+  - name: feature-platform
+    rules:
+      - alert: OnlineReadLatencyHigh
+        expr: histogram_quantile(0.99, sum(rate(feature_platform_online_read_latency_seconds_bucket[5m])) by (le, feature_view)) > 0.010
+        for: 5m
+        labels: { severity: page }
+        annotations:
+          summary: "Online read p99 > 10ms for {{ $labels.feature_view }}"
+          runbook: "docs/runbooks/online-store-outage.md"
+
+      - alert: FeatureStale
+        expr: feature_platform_feature_freshness_seconds > 86400
+        for: 10m
+        labels: { severity: page }
+        annotations:
+          summary: "Feature view {{ $labels.feature_view }} staler than SLA"
+          runbook: "docs/runbooks/feature-staleness.md"
+
+      - alert: FeatureDriftPSI
+        expr: feature_platform_feature_drift_psi > 0.2
+        for: 0m
+        labels: { severity: ticket }
+        annotations:
+          summary: "PSI drift on {{ $labels.feature_view }}/{{ $labels.feature }}"
+
+      - alert: TrainingServingSkew
+        expr: feature_platform_training_serving_skew > 0.1
+        for: 0m
+        labels: { severity: ticket }
+        annotations:
+          summary: "Training-serving skew on {{ $labels.feature_view }}/{{ $labels.feature }}"
