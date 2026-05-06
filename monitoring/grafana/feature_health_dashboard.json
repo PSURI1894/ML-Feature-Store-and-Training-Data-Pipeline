@@ -1,0 +1,61 @@
+{
+  "title": "Feature Platform — Health",
+  "uid": "feature-platform-health",
+  "schemaVersion": 39,
+  "tags": ["feature-store", "mlops"],
+  "timezone": "utc",
+  "refresh": "1m",
+  "time": { "from": "now-24h", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "feature_view",
+        "type": "query",
+        "query": "label_values(feature_platform_feature_freshness_seconds, feature_view)",
+        "includeAll": true
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Online read p99 (ms)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "fieldConfig": { "defaults": { "unit": "ms", "thresholds": { "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 10 } ] } } },
+      "targets": [
+        {
+          "expr": "1000 * histogram_quantile(0.99, sum(rate(feature_platform_online_read_latency_seconds_bucket{feature_view=~\"$feature_view\"}[5m])) by (le, feature_view))",
+          "legendFormat": "{{feature_view}}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Feature freshness (s) vs SLA",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "feature_platform_feature_freshness_seconds{feature_view=~\"$feature_view\"}", "legendFormat": "{{feature_view}}" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "PSI drift",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "feature_platform_feature_drift_psi{feature_view=~\"$feature_view\"}", "legendFormat": "{{feature}}" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Materialized rows / min",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        { "expr": "sum(rate(feature_platform_materialize_rows_total[5m])) by (feature_view)", "legendFormat": "{{feature_view}}" }
+      ]
+    }
+  ]
+}
