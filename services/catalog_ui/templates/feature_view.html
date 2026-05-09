@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ fv.name }} — Feature Catalog</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header><h1>{{ fv.name }}</h1><a href="/">&larr; all features</a></header>
+  <main>
+    <dl class="meta">
+      <dt>Entities</dt><dd>{{ fv.entities | join(", ") }}</dd>
+      <dt>Owner</dt><dd>{{ fv.owner }}</dd>
+      <dt>Team</dt><dd>{{ fv.team }}</dd>
+      <dt>Sensitivity</dt><dd><span class="badge {{ fv.sensitivity }}">{{ fv.sensitivity }}</span></dd>
+      <dt>Tier</dt><dd>{{ fv.tier }}</dd>
+      <dt>TTL</dt><dd>{{ fv.ttl }}</dd>
+      <dt>Freshness SLA</dt><dd>{{ fv.sla_freshness }}</dd>
+      <dt>Source contract</dt><dd>{{ fv.source_contract or "—" }}</dd>
+      <dt>Online</dt><dd>{{ "yes" if fv.online else "no" }}</dd>
+    </dl>
+
+    <h2>Features</h2>
+    <ul>{% for name in fv.feature_names %}<li><code>{{ name }}</code></li>{% endfor %}</ul>
+
+    <h2>Consumed by</h2>
+    {% if consumers %}
+      <ul>{% for c in consumers %}<li>{{ c }}</li>{% endfor %}</ul>
+    {% else %}<p class="muted">No registered consumers.</p>{% endif %}
+  </main>
+</body>
+</html>
