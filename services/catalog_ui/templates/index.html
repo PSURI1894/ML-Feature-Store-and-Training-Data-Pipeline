@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feature Catalog</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🧊 Feature Catalog</h1>
+    <p class="sub">Every feature view, its owner, freshness SLA, and sensitivity.</p>
+  </header>
+
+  <main>
+    <input id="filter" type="search" placeholder="Filter features…" onkeyup="filterRows()" />
+    <table id="catalog">
+      <thead>
+        <tr>
+          <th>Feature view</th><th>Entities</th><th>Owner</th>
+          <th>Team</th><th>Sensitivity</th><th>Tier</th><th>SLA</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fv in feature_views %}
+        <tr>
+          <td><a href="/feature-view/{{ fv.name }}">{{ fv.name }}</a></td>
+          <td>{{ fv.entities | join(", ") }}</td>
+          <td>{{ fv.owner }}</td>
+          <td>{{ fv.team }}</td>
+          <td><span class="badge {{ fv.sensitivity }}">{{ fv.sensitivity }}</span></td>
+          <td>{{ fv.tier }}</td>
+          <td>{{ fv.sla_freshness }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    function filterRows() {
+      const q = document.getElementById('filter').value.toLowerCase();
+      document.querySelectorAll('#catalog tbody tr').forEach(tr => {
+        tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
