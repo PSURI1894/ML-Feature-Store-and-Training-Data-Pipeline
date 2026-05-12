@@ -1,0 +1,27 @@
+{
+  "expectation_suite_name": "user_features_v2_suite",
+  "ge_cloud_id": null,
+  "meta": { "great_expectations_version": "0.18.16", "owner": "parthsuri009@gmail.com" },
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "entity_id" }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": { "column": "event_ts" }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "txn_count_30d", "min_value": 0, "max_value": 100000 }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": { "column": "chargeback_rate_90d", "min_value": 0.0, "max_value": 1.0, "mostly": 0.999 }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": { "column": "txn_amount_avg_30d", "type_": "float" }
+    }
+  ]
+}
