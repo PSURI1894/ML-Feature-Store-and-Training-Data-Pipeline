@@ -2,6 +2,10 @@
 
 Reads are pipelined for multi-entity requests so a single round trip serves a
 whole feature service. Writes carry a TTL so stale features expire automatically.
+
+Fix history: TTLs expiring just before a traffic peak caused cold reads. Added
+``extend_ttl`` so the pre-warmer (``online/prewarm.py``) can refresh TTLs on
+critical views ahead of known peaks without rewriting values.
 """
 
 from __future__ import annotations
@@ -63,3 +67,17 @@ class RedisOnlineStore(OnlineStore):
 
     def delete(self, feature_view: str, entity_keys: Mapping[str, str]) -> None:
         self.client.delete(online_key(feature_view, entity_keys))
+
+    def extend_ttl(
+        self, feature_view: str, entity_keys_list: Sequence[Mapping[str, str]], ttl_seconds: int
+    ) -> int:
+        """Refresh TTL on existing keys without rewriting values (pre-warming).
+
+        Returns the number of keys whose TTL was extended (keys that had already
+        expired are not resurrected — that's a materialize, not a pre-warm).
+        """
+        pipe = self.client.pipeline(transaction=False)
+        keys = [online_key(feature_view, ek) for ek in entity_keys_list]
+        for key in keys:
+            pipe.expire(key, ttl_seconds)
+        return sum(1 for ok in pipe.execute() if ok)
