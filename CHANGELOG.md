@@ -9,3 +9,4 @@ All notable changes to this project are documented here. The format is based on
 ## [0.1.0] - 2026-04-15
 ### Added
 - Initial project scaffold: packaging, tooling, CI skeleton, local docker stack.
+- Confirmed point-in-time suite covers composite-key future leakage.
