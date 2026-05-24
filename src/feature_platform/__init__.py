@@ -6,6 +6,6 @@ Public surface is intentionally small; import submodules directly, e.g.::
     from feature_platform.online.redis_store import RedisOnlineStore
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = ["__version__"]
