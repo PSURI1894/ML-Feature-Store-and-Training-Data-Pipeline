@@ -11,3 +11,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-24 | offline | Documented require_partition_filter guard preventing full-history scans. |
 | 2026-05-24 | online | Recorded Redis allkeys-lru eviction policy rationale for the hot tier. |
 | 2026-05-24 | training | Noted DuckDB sampling step before full BigQuery training joins. |
+| 2026-05-25 | monitoring | Recorded PSI bin-edge selection (expected-quantile) and thresholds. |
