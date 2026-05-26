@@ -15,3 +15,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-25 | monitoring | Clarified monthly baseline refresh cadence for drift detection. |
 | 2026-05-25 | governance | Captured RBAC read matrix per sensitivity level. |
 | 2026-05-26 | registry | Documented feature-view version bump and deprecation policy. |
+| 2026-05-26 | serving | Confirmed gRPC client 50ms hard deadline and graceful MISSING handling. |
