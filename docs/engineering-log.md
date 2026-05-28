@@ -22,3 +22,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-27 | observability | Verified Grafana panels bind to the documented Prometheus metrics. |
 | 2026-05-28 | cost | Recorded quarterly low-usage feature deprecation review process. |
 | 2026-05-28 | streaming | Documented exactly-once via 60s Flink checkpoints. |
+| 2026-05-28 | registry | Documented mandatory tags enforced by feature-validation CI. |
