@@ -25,3 +25,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-28 | registry | Documented mandatory tags enforced by feature-validation CI. |
 | 2026-05-29 | offline | Documented MERGE-based idempotent writes on (entity_id, event_ts). |
 | 2026-05-29 | online | Noted DynamoDB cold-tier server-side TTL configuration. |
+| 2026-05-29 | monitoring | Recorded KS p-value alert threshold (0.05) and rationale. |
