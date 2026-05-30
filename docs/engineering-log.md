@@ -28,3 +28,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-29 | monitoring | Recorded KS p-value alert threshold (0.05) and rationale. |
 | 2026-05-29 | governance | Recorded audit event shape for sensitive reads and erasures. |
 | 2026-05-30 | serving | Verified feature-service p99 stays under 10ms for the 4-view fraud bundle. |
+| 2026-05-30 | offline | Documented require_partition_filter guard preventing full-history scans. |
