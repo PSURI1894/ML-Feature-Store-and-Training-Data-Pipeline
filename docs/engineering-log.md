@@ -30,3 +30,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-30 | serving | Verified feature-service p99 stays under 10ms for the 4-view fraud bundle. |
 | 2026-05-30 | offline | Documented require_partition_filter guard preventing full-history scans. |
 | 2026-05-30 | online | Recorded Redis allkeys-lru eviction policy rationale for the hot tier. |
+| 2026-05-31 | training | Noted DuckDB sampling step before full BigQuery training joins. |
