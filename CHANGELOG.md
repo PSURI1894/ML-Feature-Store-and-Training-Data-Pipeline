@@ -14,3 +14,4 @@ All notable changes to this project are documented here. The format is based on
 - Recorded on-demand transform co-location to keep added latency negligible.
 - Noted skew score < 0.1 SLO and reconciliation cadence.
 - Documented backfill_runs / backfill_partitions audit schema.
+- Confirmed point-in-time suite covers composite-key future leakage.
