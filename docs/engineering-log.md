@@ -36,3 +36,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-31 | governance | Captured RBAC read matrix per sensitivity level. |
 | 2026-06-01 | registry | Documented feature-view version bump and deprecation policy. |
 | 2026-06-01 | serving | Confirmed gRPC client 50ms hard deadline and graceful MISSING handling. |
+| 2026-06-01 | offline | Noted Iceberg time-travel snapshot use for reproducible training sets. |
