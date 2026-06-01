@@ -34,3 +34,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-05-31 | monitoring | Recorded PSI bin-edge selection (expected-quantile) and thresholds. |
 | 2026-05-31 | monitoring | Clarified monthly baseline refresh cadence for drift detection. |
 | 2026-05-31 | governance | Captured RBAC read matrix per sensitivity level. |
+| 2026-06-01 | registry | Documented feature-view version bump and deprecation policy. |
