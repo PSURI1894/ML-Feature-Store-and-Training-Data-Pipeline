@@ -40,3 +40,4 @@ Newest entries at the bottom. Each entry corresponds to a maintenance commit.
 | 2026-06-02 | online | Documented composite-key escaping invariant after collision fix. |
 | 2026-06-02 | mlflow | Documented feature-provenance promotion gate for model registry. |
 | 2026-06-02 | observability | Verified Grafana panels bind to the documented Prometheus metrics. |
+| 2026-06-03 | cost | Recorded quarterly low-usage feature deprecation review process. |
