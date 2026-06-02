@@ -16,3 +16,4 @@ All notable changes to this project are documented here. The format is based on
 - Documented backfill_runs / backfill_partitions audit schema.
 - Confirmed point-in-time suite covers composite-key future leakage.
 - Documented right-to-be-forgotten propagation across online+offline.
+- Recorded on-demand transform co-location to keep added latency negligible.
