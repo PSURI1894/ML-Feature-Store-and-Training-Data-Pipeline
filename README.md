@@ -176,26 +176,26 @@ value = msgpack({feature: value, ...})  EX 86400
 
 ```mermaid
 sequenceDiagram
-    participant Eng as Feature Engineer
-    participant CI as CI/CD
-    participant Reg as Registry (Feast)
-    participant Spark
-    participant Off as Offline Store
-    participant On as Online Store
+    actor Eng as Feature Engineer
+    participant CI as CI and CD
+    participant Reg as Registry
+    participant Spark as Spark
+    participant Offline as Offline Store
+    participant Online as Online Store
     participant Train as Training Service
-    participant Model as Model / MLflow
+    participant Model as Model and MLflow
     participant Mon as Monitor
 
     Eng->>CI: PR with feature_view (owner, SLA, sensitivity)
-    CI->>CI: validate schema/naming + unit-test transform
-    CI->>Reg: on merge → feast apply
-    Spark->>Off: scheduled compute → Parquet (partition=event_date)
-    Spark->>On: feast materialize (TTL)
-    Train->>Off: (entity_ids, event_ts) → as-of join
+    CI->>CI: validate schema and naming, unit-test transform
+    CI->>Reg: on merge, run feast apply
+    Spark->>Offline: scheduled compute, write Parquet by event_date
+    Spark->>Online: feast materialize with TTL
+    Train->>Offline: entity_ids and event_ts, as-of join
     Train->>Model: leakage-free training set
-    Model->>Reg: register + pin feature_view_versions
-    Model->>On: gRPC GetOnlineFeatures (p99 < 10ms)
-    Mon->>Off: nightly KS/PSI, freshness, null-rate
+    Model->>Reg: register and pin feature_view_versions
+    Model->>Online: gRPC GetOnlineFeatures, p99 under 10ms
+    Mon->>Offline: nightly KS/PSI, freshness, null-rate
     Mon-->>Eng: alert on drift / staleness
 ```
 
