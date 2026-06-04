@@ -1,0 +1,24 @@
+# Code owners for the ML Feature Store & Training Data Pipeline.
+# Listed owners are automatically requested for review on matching paths.
+# See https://docs.github.com/articles/about-code-owners
+
+# Default owner for everything in the repo.
+*                          @PSURI1894
+
+# Feature definitions (the registry / source of truth).
+/feature_repo/             @PSURI1894
+
+# Platform library.
+/src/feature_platform/     @PSURI1894
+
+# Engines and pipelines.
+/spark/                    @PSURI1894
+/flink/                    @PSURI1894
+/pipelines/                @PSURI1894
+
+# Services (serving, on-demand, catalog UI).
+/services/                 @PSURI1894
+
+# CI/CD, infrastructure, and governance-sensitive areas.
+/.github/                  @PSURI1894
+/infra/                    @PSURI1894
